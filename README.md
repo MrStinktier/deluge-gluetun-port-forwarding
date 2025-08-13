@@ -39,6 +39,7 @@ Finally, add the following snippet to your `docker-compose.yml`, substituting th
 
 For [Gluetun](https://github.com/qdm12/gluetun/) configuration please refer to their [documentation](https://github.com/qdm12/gluetun-wiki/tree/main) and [setup guide](https://github.com/qdm12/gluetun/).
 
+The only parts that are neccesary from the config below is the extra volume that points to a folder that stores the forwarded_port file in which the open port is written, the variable VPN_PORT_FORWARDING set to on and a vpn provider that supports port forwarding (You can find this out in Gluetuns [port forwarding documentation](https://github.com/qdm12/gluetun-wiki/blob/main/setup/advanced/vpn-port-forwarding.md)). 
 ```yml
 services:
   gluetun:
