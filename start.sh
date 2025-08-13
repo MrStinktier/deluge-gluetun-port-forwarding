@@ -1,5 +1,7 @@
 #!/bin/bash
 
+sleep 60
+
 OLD_PORT=0
 
 update_port () {
