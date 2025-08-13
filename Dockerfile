@@ -1,0 +1,16 @@
+FROM ubuntu:jammy
+
+LABEL version="1.0"
+
+RUN apt-get update
+RUN apt-get install --quiet -mq curl jq
+
+ENV DELUGE_SERVER=localhost
+ENV DELUGE_PORT=8112
+ENV DELUGE_PASS=YOURPASSWORD
+ENV PORT_FORWARDED=gluetun/forwarded_port
+
+COPY ./start.sh ./start.sh
+RUN chmod 770 ./start.sh
+
+CMD ["./start.sh"]
