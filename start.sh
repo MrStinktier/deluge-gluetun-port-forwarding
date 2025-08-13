@@ -1,7 +1,5 @@
 #!/bin/bash
 
-sleep 300
-
 OLD_PORT=0
 
 update_port () {
@@ -23,17 +21,33 @@ update_port () {
   echo "Ports changed to $listenports"
 }
 
-while true; do
-  if [ -f $PORT_FORWARDED ]; then
-    if [ ! $OLD_PORT == $(cat $PORT_FORWARDED) ]; then
-      update_port
-      OLD_PORT=$(cat $PORT_FORWARDED)
+loop () {
+  while true; do
+    if [ -f $PORT_FORWARDED ]; then
+      if [ ! $OLD_PORT == $(cat $PORT_FORWARDED) ]; then
+        update_port
+        OLD_PORT=$(cat $PORT_FORWARDED)
+      else
+        sleep 0.2
+      fi
     else
-      sleep 0.2
+      echo "Couldn't find file $PORT_FORWARDED"
+      echo "Trying again in 10 seconds"
+      sleep 10
     fi
-  else
-    echo "Couldn't find file $PORT_FORWARDED"
+  done
+}
+
+while true; do
+  cookie=$(curl -s -c - -H "Content-Type: application/json" -d '{"method": "auth.login", "params": ["'$DELUGE_PASS'"], "id": 1}' $DELUGE_SERVER:$DELUGE_PORT/json) > /dev/null
+  response=$(echo "$cookie" | curl -s -b - -H "Content-Type: application/json" -d '{"method": "web.get_hosts", "params": [], "id": 1}' $DELUGE_SERVER:$DELUGE_PORT/json) > /dev/null
+  hostid=$(echo "$response" | jq -r '.result[0][0]')
+  if [ -z "$hostid" ]; then
+    echo "It seems like deluge isn't started completely. If this warning keeps apearing you should check your authentification details."
     echo "Trying again in 10 seconds"
     sleep 10
+  else
+    loop
+    break
   fi
 done
