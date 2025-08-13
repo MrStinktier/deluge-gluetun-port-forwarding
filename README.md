@@ -1,3 +1,5 @@
+This Docker image is a modified version of [secunit404](https://github.com/secunit404)'s [gluetun-deluge-port-manager](https://github.com/secunit404/gluetun-deluge-port-manager).
+
 # gluetun-deluge port forwarding
 Automatically updates the listening port for deluge to the port forwarded by [Gluetun](https://github.com/qdm12/gluetun/). 
 
