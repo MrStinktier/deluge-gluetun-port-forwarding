@@ -3,6 +3,7 @@ FROM ubuntu:jammy
 LABEL version="1.0"
 
 RUN apt-get update
+RUN apt-get install --quiet -mq curl jg
 
 ENV DELUGE_SERVER=localhost
 ENV DELUGE_PORT=8112
