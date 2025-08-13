@@ -89,3 +89,5 @@ services:
       PORT_FORWARDED: /gluetun/forwarded_port
     restart: unless-stopped
 ```
+
+Docker Hub Link: https://hub.docker.com/r/mrstinktier/deluge-gluetun-port-forwarding
