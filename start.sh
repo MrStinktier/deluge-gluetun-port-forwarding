@@ -1,6 +1,6 @@
 #!/bin/bash
 
-sleep 60
+sleep 300
 
 OLD_PORT=0
 
