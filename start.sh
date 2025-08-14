@@ -15,7 +15,7 @@ update_port () {
   response1=$(echo "$cookie" | curl -s -b - -H "Content-Type: application/json" -d '{"method": "core.get_config_value", "params": ["random_port"], "id": 1}' $DELUGE_SERVER:$DELUGE_PORT/json) > /dev/null
   randomportstatus=$(echo "$response1" | jq -r '.result')
   echo "Random port changed to: $randomportstatus"
-  echo "$cookie" | curl -s -b - -H "Content-Type: application/json" -d '{"method": "core.set_config", "params": [{"listen_ports": ["'$PORT'", "'$PORT'"]}], "id": 1}' $DELUGE_SERVER:$DELUGE_PORT/json > /dev/null
+  echo "$cookie" | curl -s -b - -H "Content-Type: application/json" -d '{"method": "core.set_config", "params": [{"listen_ports": ['$PORT', '$PORT']}], "id": 1}' $DELUGE_SERVER:$DELUGE_PORT/json > /dev/null
   response2=$(echo "$cookie" | curl -s -b - -H "Content-Type: application/json" -d '{"method": "core.get_config_value", "params": ["listen_ports"], "id": 1}' $DELUGE_SERVER:$DELUGE_PORT/json) > /dev/null
   listenports=$(echo "$response2" | jq -r '.result')
   echo "Ports changed to $listenports"
